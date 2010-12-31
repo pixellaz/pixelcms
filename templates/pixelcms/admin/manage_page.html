@@ -1,0 +1,40 @@
+{% extends "pixelcms/admin/dashboard.html" %}
+
+{% block manage %}
+
+<!-- PAGE ENTRIES -->
+<h3>New Page</h3>
+<a class="mbl-button" href="{% url add-page %}" title="New Page">Page</a>
+<h3>All Entries&nbsp; { {{ entries|length }} }</h3>
+<ul class="lined-list">
+{% for entry in entries %}
+    {% if forloop.first %}
+    <li class="first">
+    {% else %}
+        {% if forloop.last %}
+        <li class="last">
+        {% else %}
+        <li>
+        {% endif %}
+    {% endif %}
+    <span class="title">
+    <a href="{{ entry.get_absolute_url }}" title="{{ entry.title|safe }}">
+    {{ entry.title|truncatewords:7|safe }}</a></span>&nbsp;<span class="date">{{ entry.publish_date|date:"F jS, Y" }}</span>
+    <div class="edit-box">
+    {% if not entry.published %}<span class="unpublished">Unpublished</span>&nbsp;
+    {% else %}
+        {% if entry.publish_date >= datenow and entry.publish_date %}<span class="unpublished">Future Publication</span>&nbsp;{% endif %}
+        {% if entry.expiry_date < datenow and entry.expiry_date %}<span class="unpublished">Expired</span>&nbsp;{% endif %}
+    {% endif %}
+    <a class="mbl-button" href="{% url edit-page entry.id %}">Edit</a>&nbsp;
+    <form action="{% url delete-page %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" value="{{ entry.id }}" name="entry_id" />
+        <input type="submit" value="Delete" class="mbl-button mbl-button-primary" />
+    </form>
+    </div>
+    </li>
+{% endfor %}
+</ul>
+
+{% endblock %}

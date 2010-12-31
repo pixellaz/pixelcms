@@ -1,0 +1,20 @@
+{% extends "pixelcms/themes/default/base.html" %}
+
+{% block title %}Log In{% endblock %}
+
+{% block content %}
+<div class="grid_8">
+	<h2>Log In</h2>
+	<div class="clear"></div>
+	<form action="" method="post">
+	    {% csrf_token %}
+	        <table>
+	        {{ form }}
+	        <tr>
+	            <th></th><td><input type="submit" value="Log in" /></td>
+	    </table>
+	    <input type="hidden" id="next" name="next" value="{{ next }}" />
+	</form>	
+</div>
+
+{% endblock %}

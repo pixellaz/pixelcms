@@ -1,0 +1,23 @@
+{% load typogrify %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" 
+	"http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>{% block title %}{% endblock %} | {{ SITE_INFO_TITLE }}</title>
+	  <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}pixelcms/themes/default/css/style.css" />
+     <link rel="alternate" type="application/rss+xml" title="PixelCMS (RSS 2.0)" href="/feeds/rss/" />
+     <link rel="alternate" type="application/atom+xml" title="PixelCMS (Atom 1.0)" href="/feeds/atom/" />
+     <script type="text/javascript" src="{{ MEDIA_URL }}pixelcms/themes/default/js/jquery.js"></script>
+	  <script type="text/javascript" src="{{ MEDIA_URL }}pixelcms/themes/default/js/mumblr.js"></script>
+	{% block extrahead %}{% endblock %}
+</head>
+<body>
+	{% include "pixelcms/themes/default/nav.html" %}
+	<div class="container_12" id="container">
+		{% block content %}{% endblock %}
+	</div>
+	<div class="clear"></div>
+	{% include "pixelcms/themes/default/footer.html" %}
+</body>
+</html>

@@ -1,0 +1,85 @@
+{% extends "pixelcms/themes/default/base.html" %}
+
+{% load typogrify %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+
+<div class="grid_8" id="entry_wrapper">
+	{% if not entries.object_list %}
+	    There are no recent entries. {{ no_entries_messages|random|safe }}
+	{% endif %}
+	{% for entry in entries.object_list %}
+	    <div class="entry">
+			 {% if not forloop.first %}
+		    <div class="hr-styled"></div>
+		    {% endif %}	
+	        <h2>
+	            {% if entry.link_url %}
+	                <a target="_blank" class="external-link" href="{{ entry.link_url }}">
+	            {% else %}
+	                {% if entry.video_url %}
+	                <a target="_blank" class="video" href="{{ entry.video_url }}">
+	                {% else %}
+	                <a href="{{ entry.get_absolute_url }}">
+	                {% endif %}
+	            {% endif %}
+	            {{ entry.title|safe|typogrify }}</a>
+	        </h2>
+	            <div class="post-info">
+	            {% if user.is_authenticated %}
+	                <div class="edit-box">
+	                    <a class="mbl-button" href="{% url edit-entry entry.id %}">Edit</a>&nbsp;
+	                    <form action="{% url delete-entry %}" method="post">
+	                        {% csrf_token %}
+	                        <input type="hidden" value="{{ entry.id }}" name="entry_id" />
+	                        <input type="submit" value="Delete" />
+	                    </form>
+	                </div>
+	            {% endif %}
+	            <p>
+	            <span class="date">{{ entry.publish_date|timesince }} ago</span>
+	            &mdash;
+	            {% if entry.comments_enabled %}
+	            <a href="{{ entry.get_absolute_url }}#comments" class="comments">{{ entry.comments|length|default:0|safe }} Comment{{ entry.comments|length|default:0|pluralize }}</a>
+	            {% else %}
+	            <span class="comments">Comments closed</span>
+	            {% endif %}
+	            &mdash;
+	            <a href="{{ entry.get_absolute_url }}" class="permalink">Permalink</a>
+	            </p>
+	            {% if entry.tags %}
+	                <ul class="inline-tag-list">
+	                {% for tag in entry.tags %}
+	                    <li><a class="tag" href="{% url tagged-entries tag %}"><span>{{ tag }}</span></a></li>
+	                {% endfor %}
+	                </ul>
+	            {% endif %}
+	            <div class="clear"></div>
+	            </div>
+	        {{ entry.rendered_content|safe|typogrify }}
+	    </div>
+	{% endfor %}
+	{% if entries.has_other_pages %}
+	    <div class="hr-styled"></div>
+	{% endif %}
+	<div class="clear"></div>
+	{% if entries.object_list %}
+	<div class="pagination">
+	{% spaceless %}
+	{% if entries.has_previous %}
+	    <a href="{% url recent-entries entries.previous_page_number %}">&laquo; Newer</a>
+	{% else %}
+	    <span class="disabled">&laquo; Newer</span>
+	{% endif %}
+	{% if entries.has_next %}
+	    <a href="{% url recent-entries entries.next_page_number %}">Older &raquo;</a>
+	{% else %}
+	    <span class="disabled">Older &raquo;</span>
+	{% endif %}
+	{% endspaceless %}
+	</div>
+	{% endif %}
+</div>
+	{% endblock %}

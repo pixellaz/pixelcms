@@ -1,0 +1,22 @@
+{% extends "pixelcms/themes/default/base_fullwidth.html" %}
+{% load typogrify %}
+{% block title %}{{ entry.title }}{% endblock %}
+
+{% block content %}
+<div class="grid_8" id="entry_wrapper">
+<h2><a href="{{ entry.get_absolute_url }}">{{ entry.title|typogrify }}</a>
+</h2>
+<div class="clear"></div>
+    {% if user.is_authenticated %}
+        <div class="edit-box">
+            <a class="mbl-button" href="{% url edit-page entry.id %}">Edit</a> |
+            <form style="display: inline" action="{% url delete-page %}" method="post">
+                <input type="hidden" value="{{ entry.id }}" name="entry_id" />
+                <input type="submit" value="Delete" class="mbl-button mbl-button-primary" />
+            </form>
+        </div>
+    {% endif %}
+    <div class="clear"></div>
+    {{ entry.rendered_content|safe }}
+</div>
+{% endblock %}

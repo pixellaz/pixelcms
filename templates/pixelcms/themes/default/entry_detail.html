@@ -1,0 +1,116 @@
+{% extends "pixelcms/themes/default/base.html" %}
+
+{% load typogrify %}
+
+{% block extrahead %}
+{{ block.super }}
+<script type="text/javascript">
+var RecaptchaOptions = {
+   theme : 'white'
+};
+</script>
+{% endblock %}
+
+{% block title %}{{ entry.title }}{% endblock %}
+
+{% block content %}
+<div class="grid_8" id="entry_wrapper">
+<h2>
+    {% if entry.link_url %}
+        <a target="_blank" class="external-link" href="{{ entry.link_url }}">
+    {% else %}
+        {% if entry.video_url %}
+            <a target="_blank" class="video" href="{{ entry.video_url }}">
+        {% else %}
+            <a href="{{ entry.get_absolute_url }}">
+        {% endif %}
+    {% endif %}
+        {{ entry.title|typogrify }}
+    </a>
+</h2>
+<div class="clear"></div>
+
+<div class="post-info">
+{% if user.is_authenticated %}
+    <div class="edit-box">
+        <a class="mbl-button" href="{% url edit-entry entry.id %}">Edit</a>&nbsp;
+        <form action="{% url delete-entry %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" value="{{ entry.id }}" name="entry_id" />
+            <input type="submit" value="Delete" class="mbl-button mbl-button-primary" />
+        </form>
+    </div>
+{% endif %}
+<p>
+<span class="date">{{ entry.publish_date|date:"F jS, Y" }}</span>
+&mdash;
+{% if entry.comments_enabled %}
+<a href="{{ entry.get_absolute_url }}#comments" class="comments">{{ entry.comments|length|default:0|safe }} Comment{{ entry.comments|length|default:0|pluralize }}</a>
+{% else %}
+<span class="comments">Comments closed</span>
+{% endif %}
+&mdash;
+<a href="{{ entry.get_absolute_url }}" class="permalink">Permalink</a>
+</p>
+{% if entry.tags %}
+    <ul class="inline-tag-list">
+    {% for tag in entry.tags %}
+        <li><a class="tag" href="{% url tagged-entries tag %}"><span>{{ tag }}</span></a></li>
+    {% endfor %}
+    </ul>
+{% endif %}
+<div class="clear"></div>
+</div>
+{{ entry.rendered_content|safe }}
+{% if entry.expiry_date %}
+<hr/>
+<p>This post will expire in {{ entry.expiry_date|timeuntil }}</p>
+{% endif %}
+<div class="hr-styled"></div>
+<h3>Discussion</h3>
+<a name="comments"></a>
+{% if entry.comments_enabled %}
+{% if entry.comments %}
+    <ul class="comments-list">
+    {% for comment in entry.comments %}
+        {% if comment.is_admin %}<li class="is_admin">{% else %}<li>{% endif %}
+        <div class="comment-info">
+        <strong>{{ comment.author }}</strong> <span class="comment-time">{{ comment.date|timesince }} ago</span>
+        {% if user.is_authenticated %}        
+        <div class="edit-box">
+            <form action="{% url delete-comment %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" value="{{ comment.id }}" name="comment_id" />
+                <input type="submit" value="Delete" class="mbl-button mbl-button-primary" />
+            </form>
+        </div>
+        {% endif %}
+        </div>
+        {{ comment.rendered_content|safe }}
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+There are no comments for this post.
+{% endif %}
+{% if not comments_expired %}
+<div class="clear"></div>
+<h3>Leave A Reply</h3>
+<p>You may use <a href="http://daringfireball.net/projects/markdown/basics">Markdown</a> syntax but raw HTML will be escaped and headings normalised.</p>
+<form action="" method="post">
+    {% csrf_token %}
+    <table>
+        {{ form }}
+        <tr>
+            <th></th><td><input type="submit" value="Save" /></td>
+        </tr>
+    </table>
+</form>
+{% else %}
+<p>Comments on this post have now been closed.</p>
+{% endif %}
+{% else %}
+<p>Comments for this post are closed.</p>
+{% endif %}
+</div>
+{% endblock %}
