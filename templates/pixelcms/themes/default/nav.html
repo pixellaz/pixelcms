@@ -1,4 +1,5 @@
 {% load menu_tags %}
+{% load settings_tags %}
 <div class="container_12">
 	<div class="grid_4" id="login_info">
 		<ul class"inline" id="login">
@@ -24,8 +25,8 @@
 	</div>
 	<div class="clear"></div>
 	<div id="header">
-		<div class="grid_4" id="logo"><h1><a href="{% url home %}">{{ SITE_INFO_TITLE }}</a></h1>
-      <h4>{{ SITE_INFO_DESC }}</h4></div>
+		<div class="grid_4" id="logo"><h1><a href="{% url home %}">{% site_title %}</a></h1>
+      <h4>{% tagline %}</h4></div>
 		<div class="grid_8">
 			<ul id="nav">
 				{% get_menu_items main_menu as menu_item_list %}
