@@ -1,7 +1,9 @@
 PIXEL CMS
 =============
 
-A CMS that built on top of Django and MongoDB. This is a very adolescent CMS but promising a highly scaleable and easy to configure and maintenance.
+- A CMS that built on top of Django and MongoDB. This is a very adolescent CMS but promising a fast, highly scaleable and easy to maintain CMS.
+
+- A documentation will be added soon.
 
 VERSIONS
 -------
