@@ -1,6 +1,8 @@
 from django.template import Library, Node, TemplateSyntaxError
 import re
 from pixelcms.apps.menus import Menu, MenuItem
+from django.core.exceptions import ObjectDoesNotExist
+from django.conf import settings
 
 register = Library()
 
@@ -10,8 +12,18 @@ class MenuItemNode(Node):
 		self.menu_id, self.context_var = menu_id, context_var
 		
 	def render(self, context):
-		menu_instance = Menu.objects.get(unique_id=self.menu_id)
-		context[self.context_var] = MenuItem.objects(menu=menu_instance)
+		try:
+			menu_instance = Menu.objects.get(unique_id=self.menu_id)
+		#if there is no menus defined, create one
+		except Menu.DoesNotExist:
+			menu = Menu(title='Main', unique_id='main_menu')
+			menu.save()
+			menu_item = MenuItem(title = 'Home', menu = menu, url = 'http://pixellaz.net',
+							label = 'Home', order = 0, parent = '')
+			menu_item.save()
+			context[self.context_var] = menu_item
+		else:
+			context[self.context_var] = MenuItem.objects(menu=menu_instance)
 		return ''
 
 @register.simple_tag

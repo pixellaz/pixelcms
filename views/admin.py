@@ -15,6 +15,8 @@ from mongoengine.django.auth import REDIRECT_FIELD_NAME
 from pymongo.son import SON
 import string
 
+from mongoengine.django.auth import User
+
 from pixelcms.apps.entrytypes import markup, EntryType, PageType
 from pixelcms.apps.menus import Menu, MenuItem
 from pixelcms.apps.conf import GeneralSettings

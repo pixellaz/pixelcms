@@ -8,15 +8,15 @@
 				<li>You are currently&nbsp;</li>
 				{% if user.is_authenticated %}
 				<li>
-					logged in as <strong>
+					logged in as
 					{% if user.get_full_name %}
 	                {{ user.get_full_name }} 
 	            {% else %}
 	                {{ user.email }}
-	            {% endif %} </strong>
+	            {% endif %} 
 				. &nbsp;
 				</li>
-				<li><a href="{% url home %}">Visit site&nbsp;</a>or&nbsp;</li>
+				<li><a href="{% url home %}">Visit site&nbsp;</a></li>
 	         <li><a href="{% url log-out %}">Log out</a></li>
 				{% else %}
 				<li>

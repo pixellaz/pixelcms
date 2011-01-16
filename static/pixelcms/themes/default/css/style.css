@@ -35,7 +35,7 @@ body.admin{text-align: left;background: url('../images/bg_red.jpg') 0 0 repeat-x
 	body.admin #login_info{float:right; font-size: 0.8em; color: #ddd; margin-top: 5px;}
 		body.admin #login_info ul#login{float:right; display:inline;}
 		body.admin #login_info ul#login li{float:left;}
-		body.admin #login_info ul#login li a{float:left; color: #ffc868;}
+		body.admin #login_info ul#login li a{color: #ffc868;}
 		body.admin #login_info ul#login li:hover a{text-decoration: underline;}
 
 	body.admin #header{margin-top: 0px; text-align: left;}

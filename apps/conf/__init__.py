@@ -1,5 +1,6 @@
 from django import forms
 from mongoengine import *
+from mongoengine.django.auth import User
 
 class GeneralSettings(Document):
 	site_title = StringField()

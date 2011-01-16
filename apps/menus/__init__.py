@@ -22,7 +22,7 @@ class Menu(Document):
 	
 class MenuItem(Document):
 	title = StringField(max_length=50,required=True)
-	menu = ReferenceField(Menu, required=True)
+	menu = ReferenceField(Menu, required=False)
 	url = StringField(required=True)
 	label = StringField(max_length=50, required=True)
 	order = IntField(default=0, required=True)
