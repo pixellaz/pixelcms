@@ -26,15 +26,6 @@ def _lookup_template(name):
 	return 'pixelcms/admin/%s.html' % name
 
 @login_required
-def initial_general_settings(request):
-	settings = GeneralSettings()
-	settings.site_title = 'Pixellaz'
-	settings.tagline = 'A new world happens'
-	settings.site_url = 'http://www.pixellaz.com'
-	settings.save()
-	return HttpResponseRedirect(reverse('manage-general-settings'))
-
-@login_required
 def manage_general_settings(request):
 
 	form_class = GeneralSettings.AdminForm
@@ -42,7 +33,7 @@ def manage_general_settings(request):
 	try:
 		general_settings = GeneralSettings.objects.get()
 	except GeneralSettings.DoesNotExist:
-		return HttpResponseRedirect(reverse('initial-general-settings'))
+		return HttpResponseRedirect(reverse('install'))
 
 	if request.method == 'POST':
 		form = form_class(request.POST)

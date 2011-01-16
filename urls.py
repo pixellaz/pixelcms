@@ -8,7 +8,7 @@ from pixelcms.views.admin import (dashboard, delete_entry, add_entry, edit_entry
 								delete_comment, manage_page, add_page, edit_page, delete_page, 
 								manage_menu, add_menu, edit_menu, delete_menu, manage_menu_item,
 								add_menu_item, delete_menu_item, edit_menu_item,manage_general_settings,
-								initial_general_settings)
+								)
 from pixelcms.views.install import (install)
 
 
@@ -34,7 +34,6 @@ urlpatterns = patterns('',
 	url('^admin/install/$', install, name='install'),
     url('^admin/$', dashboard, name='dashboard'),
 	url('^admin/settings/$', manage_general_settings, name='manage-general-settings'),
-	url('^admin/settings/initialize/$', initial_general_settings, name='initial-general-settings'),
 	url('^admin/menu/$', manage_menu, name='manage-menu'),
 	url('^admin/menu/add/$', add_menu, name='add-menu'),
 	url('^admin/menu/edit/(\w+)/$', edit_menu, name='edit-menu'),
