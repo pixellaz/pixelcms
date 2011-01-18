@@ -33,11 +33,11 @@ var RecaptchaOptions = {
 <div class="post-info">
 {% if user.is_authenticated %}
     <div class="edit-box">
-        <a class="mbl-button" href="{% url edit-entry entry.id %}">Edit</a>&nbsp;
+        <a class="button" href="{% url edit-entry entry.id %}">Edit</a>&nbsp;
         <form action="{% url delete-entry %}" method="post">
             {% csrf_token %}
             <input type="hidden" value="{{ entry.id }}" name="entry_id" />
-            <input type="submit" value="Delete" class="mbl-button mbl-button-primary" />
+            <input type="submit" value="Delete" class="button button-primary" />
         </form>
     </div>
 {% endif %}
@@ -81,7 +81,7 @@ var RecaptchaOptions = {
             <form action="{% url delete-comment %}" method="post">
                 {% csrf_token %}
                 <input type="hidden" value="{{ comment.id }}" name="comment_id" />
-                <input type="submit" value="Delete" class="mbl-button mbl-button-primary" />
+                <input type="submit" value="Delete" class="button button-primary" />
             </form>
         </div>
         {% endif %}

@@ -5,7 +5,7 @@
 <h3>New Post</h3>
 <ul class="inline">
 {% for type in entry_types %}
-    <li><a class="mbl-button" href="{% url add-entry type %}" title="New {{ type }} post">{{ type }}</a></li>
+    <li><a class="button" href="{% url add-entry type %}" title="New {{ type }} post">{{ type }}</a></li>
 {% endfor %}
 </ul>
 <div class="clear"></div>
@@ -39,11 +39,11 @@
     {% else %}
     <span class="comments-small">Off</span>
     {% endif %}
-    <a class="mbl-button" href="{% url edit-entry entry.id %}">Edit</a>&nbsp;
+    <a class="button" href="{% url edit-entry entry.id %}">Edit</a>&nbsp;
     <form action="{% url delete-entry %}" method="post">
         {% csrf_token %}
         <input type="hidden" value="{{ entry.id }}" name="entry_id" />
-        <input type="submit" value="Delete" class="mbl-button mbl-button-primary" />
+        <input type="submit" value="Delete" class="button button-primary" />
     </form>
     </div>
     </li>

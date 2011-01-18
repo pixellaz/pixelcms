@@ -9,10 +9,10 @@
 <div class="clear"></div>
     {% if user.is_authenticated %}
         <div class="edit-box">
-            <a class="mbl-button" href="{% url edit-page entry.id %}">Edit</a> |
+            <a class="button" href="{% url edit-page entry.id %}">Edit</a> |
             <form style="display: inline" action="{% url delete-page %}" method="post">
                 <input type="hidden" value="{{ entry.id }}" name="entry_id" />
-                <input type="submit" value="Delete" class="mbl-button mbl-button-primary" />
+                <input type="submit" value="Delete" class="button button-primary" />
             </form>
         </div>
     {% endif %}

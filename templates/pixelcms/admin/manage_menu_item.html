@@ -3,7 +3,7 @@
 {% block manage %}
 	<h3>New Menu Item</h3>
 		<ul class="inline">
-	    <li><a class="mbl-button" href="{% url add-menu-item menu.id %}" title="New menu item">Menu Item</a></li>
+	    <li><a class="button" href="{% url add-menu-item menu.id %}" title="New menu item">Menu Item</a></li>
 		</ul>
 		<div class="clear"></div>
 		<h3>All Menus Items&nbsp; { {{ menu_item_list|length }} }</h3>
@@ -23,12 +23,12 @@
 			<a href="{% url edit-menu-item menu_item.id%}" title="Edit {{menu_item.title}} menu">{{menu_item.title}}</a>
 		</span>
 		<div class="edit-box">
-			<a class="mbl-button" href="{% url edit-menu-item menu_item.id %}" title="Edit {{menu_item.title}} menu">Edit</a>
+			<a class="button" href="{% url edit-menu-item menu_item.id %}" title="Edit {{menu_item.title}} menu">Edit</a>
 			<form action="{% url delete-menu-item %}" method="post">
 		        {% csrf_token %}
 				  <input type="hidden" value="{{ menu.id }}" name="menu_id" />
 		        <input type="hidden" value="{{ menu_item.id }}" name="menu_item_id" />
-		        <input type="submit" value="Delete" class="mbl-button mbl-button-primary" />
+		        <input type="submit" value="Delete" class="button button-primary" />
 		    </form>
 		</div>
 		</li>

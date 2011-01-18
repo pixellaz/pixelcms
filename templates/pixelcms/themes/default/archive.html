@@ -11,9 +11,9 @@
 
 	<h3>Browse By Type</h3>
 	<ul class="inline">
-	    <li><a class="mbl-button" href="{% url archive %}" title="All Entries">All</a></li>
+	    <li><a class="button" href="{% url archive %}" title="All Entries">All</a></li>
 	{% for type in entry_types %}
-	    <li><a class="mbl-button" href="{% url archive type|lower %}" title="New {{ type }} post">{{ type }}</a></li>
+	    <li><a class="button" href="{% url archive type|lower %}" title="New {{ type }} post">{{ type }}</a></li>
 	{% endfor %}
 	</ul>
 	<div class="clear"></div>

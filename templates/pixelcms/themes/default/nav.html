@@ -1,17 +1,18 @@
 {% load menu_tags %}
 {% load settings_tags %}
+<div id="top_border">
 <div class="container_12">
-	<div class="grid_4" id="login_info">
-		<ul class"inline" id="login">
+	<div class="grid_6" id="login_info">
+		<ul class="inline">
 			<li>You are currently&nbsp;</li>
 			{% if user.is_authenticated %}
 			<li>
-				logged in as
+				logged in as<strong>
 				{% if user.get_full_name %}
                 {{ user.get_full_name }} 
             {% else %}
                 {{ user.email }}
-            {% endif %} 
+            {% endif %}</strong>
 			. &nbsp;
 			</li>
 			<li><a href="{% url dashboard %}">Admin&nbsp;</a></li>
@@ -23,7 +24,10 @@
 			{% endif %}
 		</ul>
 	</div>
+</div>
+</div>
 	<div class="clear"></div>
+<div class="container_12">
 	<div id="header">
 		<div class="grid_4" id="logo"><h1><a href="{% url home %}">{% site_title %}</a></h1>
       <h4>{% tagline %}</h4></div>

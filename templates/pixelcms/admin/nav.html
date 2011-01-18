@@ -1,19 +1,18 @@
 {% load menu_tags %}
+{% load settings_tags %}
+<div id="top_border">
 <div class="container_12">
-	<div id="header">
-		<div class="grid_6" id="logo"><h1><a href="{% url home %}">{{ SITE_INFO_TITLE }}</a></h1>
-      <h4>{{ SITE_ADMIN_TITLE }}</h4></div>
 		<div class="grid_6" id="login_info">
-			<ul class"inline" id="login">
+			<ul class="inline">
 				<li>You are currently&nbsp;</li>
 				{% if user.is_authenticated %}
 				<li>
-					logged in as
+					logged in as<strong>
 					{% if user.get_full_name %}
 	                {{ user.get_full_name }} 
 	            {% else %}
 	                {{ user.email }}
-	            {% endif %} 
+	            {% endif %}</strong>
 				. &nbsp;
 				</li>
 				<li><a href="{% url home %}">Visit site&nbsp;</a></li>
@@ -25,16 +24,25 @@
 				{% endif %}
 			</ul>
 		</div>
-		<div class="clear"></div>
-		<div class="grid_12">
-			<ul id="nav">
-				<li {% is_active request "/admin/" %}><a href="{% url dashboard %}">Dashboard</a></li>
-				<li {% is_active request "/admin/blog/" %}><a href="{% url manage-entry %}">Posts</a></li>
-			   <li {% is_active request "/admin/page/" %}><a href="{% url manage-page %}">Pages</a></li>
-				<li {% is_active request "/admin/menu/" %}><a href="{% url manage-menu %}">Menus</a></li>
-				<li {% is_active request "/admin/settings/" %}><a href="{% url manage-general-settings %}">Settings</a></li>
-			</ul>
+</div>
+</div>
+<div class="clear"></div>
+<div class="container_12">
+
+		<div id="header">
+			<div class="grid_4" id="logo">
+				<h1><a href="{% url home %}">{% site_title %}</a></h1>
+	      	<h4>Site Administration</h4>
+			</div>
+			<div class="grid_8">
+				<ul id="nav">
+					<li><a {% is_active request "/admin/" %} href="{% url dashboard %}">Dashboard</a></li>
+					<li><a {% is_active request "/admin/blog/" %} href="{% url manage-entry %}">Posts</a></li>
+				   <li><a {% is_active request "/admin/page/" %} href="{% url manage-page %}">Pages</a></li>
+					<li><a {% is_active request "/admin/menu/" %} href="{% url manage-menu %}">Menus</a></li>
+					<li><a {% is_active request "/admin/settings/" %} href="{% url manage-general-settings %}">Settings</a></li>
+				</ul>
+			</div>
 		</div>
-	</div>
 </div>
 <div class="clear"></div>
