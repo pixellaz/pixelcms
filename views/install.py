@@ -9,13 +9,13 @@ from django.core.urlresolvers import reverse
 def _lookup_template(name):
 	return 'pixelcms/admin/%s.html' % name
 	
-def create_menu(url):
+def create_menu():
 	default_menu = Menu(title='Main', unique_id='main_menu')
 	default_menu.save()
-	home_menu_item = MenuItem(title = 'Home', menu = default_menu, url = url,
+	home_menu_item = MenuItem(title = 'Home', menu = default_menu, url = '/',
 					label = 'Home', order = 0, parent = '')
 	home_menu_item.save()
-	blog_menu_item = MenuItem(title = 'Blog', menu = default_menu, url = url + '/blog',
+	blog_menu_item = MenuItem(title = 'Blog', menu = default_menu, url = '/blog/',
 									label = 'Blog', order = 1, parent = '')
 	blog_menu_item.save()
 	
@@ -26,31 +26,16 @@ def create_data(request):
 	u_form = User.AdminForm
 	user_form = u_form(request.POST)
 	if user_form.is_valid():
-		user = User(**user_form.cleaned_data)
-		user.save()
+		user = User()
+		user.create_user(user_form.cleaned_data['username'], user_form.cleaned_data['password'], 
+													user_form.cleaned_data['email'])
 	settings_form = s_form(request.POST)
 	if settings_form.is_valid():
 		settings = GeneralSettings(**settings_form.cleaned_data)
 		settings.save()
-	create_menu(settings.site_url)
+	create_menu()
 	return HttpResponseRedirect(reverse('dashboard'))
 
-	
-"""
-def create_data(request):
-	s_form = GeneralSettings.AdminForm
-	u_form = User.AdminForm
-	#check if everything is not setup yet
-	try:
-		settings = GeneralSettings.objects.get()
-	except GeneralSettings.DoesNotExist:
-		settings_form = s_form(request.POST)
-		if settings_form.is_valid():
-			settings = GeneralSettings(**form.cleaned_data)
-			settings.save()
-	return HttpResponseRedirect(reverse('dashboard'))
-"""
-	
 def install(request):
 	
 	# First check if there is no General Settings exist, hence new site setup.

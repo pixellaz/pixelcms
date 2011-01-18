@@ -11,6 +11,11 @@ class User(User):
 	
 	class AdminForm(forms.Form):
 		username = forms.CharField(max_length=20, required=True)
+		email = forms.EmailField()
+		password = forms.CharField(label='Password',widget=forms.PasswordInput(render_value=False))
+	
+	class UserForm(forms.Form):
+		username = forms.CharField(max_length=20, required=True)
 		first_name = forms.CharField(max_length=30)
 		last_name = forms.CharField(max_length=30)
 		email = forms.EmailField()

@@ -203,6 +203,7 @@ def manage_menu(request):
 	menu_list = Menu.objects.order_by('title')
 
 	context = {
+		'title': 'Manage menus',
 		'menu_list': menu_list,
 	}
 	return render_to_response(_lookup_template('manage_menu'), context,
@@ -216,6 +217,7 @@ def dashboard(request):
 	entries = EntryType.objects.order_by('-publish_date')[:10]
 
 	context = {
+		'title' : 'Dashboard',
 		'entry_types': entry_types,
 		'entries': entries,
 		'datenow': datetime.now(),
@@ -231,6 +233,7 @@ def manage_page(request):
 	entries = PageType.objects.order_by('-publish_date')[:10]
 
 	context = {
+		'title': 'Manage pages',
 		'entry_types': page_types,
 		'entries': entries,
 		'datenow': datetime.now(),
@@ -332,6 +335,7 @@ def manage_entry(request):
 	entries = EntryType.objects.order_by('-publish_date')[:10]
 
 	context = {
+		'title': 'Manage posts',
 		'entry_types': entry_types,
 		'entries': entries,
 		'datenow': datetime.now(),
