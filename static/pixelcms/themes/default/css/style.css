@@ -46,3 +46,32 @@ body { }
 	}
 	a.button-primary, input[type=submit] { background-color: #545454;border: 1px solid #404040;border-bottom: 1px solid #333; text-shadow: 0px 0px 2px #555;}
 	a.button-primary:hover, input[type=submit]:hover { background: url('../images/white-grad-strong.png') 0 0 repeat-x #545454; }
+
+/*
+ *
+ * Lists
+ *
+ */
+
+
+	.lined-list {
+	    padding: 4px 0;
+	}
+
+	.lined-list li {
+	    position: relative;
+	    border-bottom: 1px dotted #CFD0C6;
+	    list-style-type: none;
+	    padding: 5px 0 4px 0;
+	    white-space: nowrap;
+	    overflow: hidden;
+	}
+
+	.lined-list li.first {
+	    background: url('../images/separator2.png') center top no-repeat;
+	}
+
+	.lined-list li.last {
+	    background: url('../images/separator2.png') center bottom no-repeat;
+	    border-bottom: none;
+	}

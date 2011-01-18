@@ -26,11 +26,11 @@
         {% if entry.publish_date >= datenow and entry.publish_date %}<span class="unpublished">Future Publication</span>&nbsp;{% endif %}
         {% if entry.expiry_date < datenow and entry.expiry_date %}<span class="unpublished">Expired</span>&nbsp;{% endif %}
     {% endif %}
-    <a class="button" href="{% url edit-page entry.id %}">Edit</a>&nbsp;
+    <a href="{% url edit-page entry.id %}">Edit</a>&nbsp;
     <form action="{% url delete-page %}" method="post">
         {% csrf_token %}
         <input type="hidden" value="{{ entry.id }}" name="entry_id" />
-        <input type="submit" value="Delete" class="button button-primary" />
+        <input type="submit" value="Delete" />
     </form>
     </div>
     </li>
