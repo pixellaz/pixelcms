@@ -29,6 +29,10 @@ def create_data(request):
 		user = User()
 		user.create_user(user_form.cleaned_data['username'], user_form.cleaned_data['password'], 
 													user_form.cleaned_data['email'])
+		user.is_superuser = True
+		user.is_staff = True
+		user.save()
+		
 	settings_form = s_form(request.POST)
 	if settings_form.is_valid():
 		settings = GeneralSettings(**settings_form.cleaned_data)

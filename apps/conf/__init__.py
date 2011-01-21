@@ -3,7 +3,7 @@ from mongoengine import *
 from mongoengine.django.auth import User
 
 class GeneralSettings(Document):
-	site_title = StringField()
+	site_title = StringField(required=True)
 	tagline = StringField()
 	site_url = URLField()
 	footer_text = StringField()
@@ -16,7 +16,7 @@ class GeneralSettings(Document):
 	    verbose_name_plural = 'General Settings'
 
 	class AdminForm(forms.Form):
-		site_title = forms.CharField()
+		site_title = forms.CharField(widget=forms.TextInput(attrs={'class':'required'}))
 		tagline = forms.CharField()
 		site_url = forms.URLField()
-		footer_text = forms.CharField(widget=forms.Textarea(attrs={'cols': 80, 'rows': 5}))
+		footer_text = forms.CharField(widget=forms.Textarea(attrs={'cols': 50, 'rows': 3}))

@@ -10,12 +10,14 @@ from pixelcms.views.admin import (dashboard, delete_entry, add_entry, edit_entry
 								add_menu_item, delete_menu_item, edit_menu_item,manage_general_settings,
 								)
 from pixelcms.views.install import (install)
-
+from pixelcms.views.auth import (signup)
 
 feeds = {
     'rss': RssFeed,
 	'atom': AtomFeed,
 }
+
+theme = getattr(settings, 'PIXELCMS_THEME', 'default')
 
 urlpatterns = patterns('',
 	url('^$', home, name='home'),
@@ -51,9 +53,10 @@ urlpatterns = patterns('',
     url('^admin/blog/edit/(\w+)/$', edit_entry, name='edit-entry'),
     url('^admin/blog/delete/$', delete_entry, name='delete-entry'),
     url('^admin/delete-comment/$', delete_comment, name='delete-comment'),
-    url('^admin/login/$', login, {'template_name': 'pixelcms/admin/login.html'}, 
+	url('^account/signup/$', signup, name='signup'),
+    url('^account/login/$', login, {'template_name': 'pixelcms/themes/%s/login.html' % theme}, 
         name='log-in'),
-    url('^admin/logout/$', logout, {'next_page': '/'}, name='log-out'),
+    url('^account/logout/$', logout, {'next_page': '/'}, name='log-out'),
     url('^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed',
         {'feed_dict': feeds}, name='feeds'),
 	(r'^tiny_mce/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT + '/pixelcms/themes/default/js/tiny_mce'}),

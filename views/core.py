@@ -26,7 +26,7 @@ def _lookup_template(name):
 
 def home(request):
 	context = {
-    	'title': 'Welcome To Pixelaz Official Homepage',
+    	'title': 'Homepage',
 	}
 	return render_to_response(_lookup_template('home'), context,
 		context_instance=RequestContext(request))

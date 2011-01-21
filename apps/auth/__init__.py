@@ -1,21 +1,18 @@
 from mongoengine.django.auth import User
 from mongoengine import *
 from django import forms
-
-class Group(Document):
-	title = StringField()
-	permission = StringField()
 		
 class User(User):
-	group = ReferenceField(Group)
+	username = StringField(required=True, unique=True, max_length=30)
+	email = StringField(required=True, unique=True, max_length=30)
 	
 	class AdminForm(forms.Form):
-		username = forms.CharField(max_length=20, required=True)
+		username = forms.CharField(max_length=30, required=True)
 		email = forms.EmailField()
 		password = forms.CharField(label='Password',widget=forms.PasswordInput(render_value=False))
 	
 	class UserForm(forms.Form):
-		username = forms.CharField(max_length=20, required=True)
+		username = forms.CharField(max_length=30, required=True)
 		first_name = forms.CharField(max_length=30)
 		last_name = forms.CharField(max_length=30)
 		email = forms.EmailField()
