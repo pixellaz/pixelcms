@@ -6,6 +6,11 @@ class User(User):
 	username = StringField(required=True, unique=True, max_length=30)
 	email = StringField(required=True, unique=True, max_length=30)
 	
+	@queryset_manager
+	def get_all(self, queryset):
+		queryset(User.object())
+		return queryset
+	
 	class AdminForm(forms.Form):
 		username = forms.CharField(max_length=30, required=True)
 		email = forms.EmailField()

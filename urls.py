@@ -11,16 +11,35 @@ from pixelcms.views.admin import (dashboard, delete_entry, add_entry, edit_entry
 								)
 from pixelcms.views.install import (install)
 from pixelcms.views.auth import (signup)
+from contact_form.views import contact_form
+from profiles.views import (create_profile, edit_profile, profile_detail, profile_list)
 
 feeds = {
     'rss': RssFeed,
 	'atom': AtomFeed,
 }
 
+contact_us_context = {
+	'title': 'Contact us'
+}
+
+profile_list_context = {
+	'title': 'All users'
+}
+
 theme = getattr(settings, 'PIXELCMS_THEME', 'default')
 
 urlpatterns = patterns('',
 	url('^$', home, name='home'),
+	url('^contact/$', contact_form,{'template_name': 'pixelcms/themes/%s/contact_form/contact_form.html' % theme ,
+									'custom_template_name': 'pixelcms/themes/%s/contact_form/contact_form.txt' % theme,
+									'custom_template_subject': 'pixelcms/themes/%s/contact_form/contact_form_subject.txt' % theme,
+									'success_url': 'sent/','extra_context': contact_us_context}, name='contact_form'),
+	url('^contact/sent/$', contact_form, name='contact_form_sent'),
+	url(r'profiles/create/$',create_profile,name='profiles_create_profile'),
+    url(r'profiles/edit/$', edit_profile,name='profiles_edit_profile'),
+    url(r'profiles/(?P<username>\w+)/$', profile_detail,name='profiles_profile_detail'),
+    url(r'profiles/$', profile_list,{'template_name': 'pixelcms/themes/%s/profiles/profile_list.html' % theme, 'extra_context': profile_list_context},name='profiles_profile_list'),
     url('^blog/$', recent_entries, name='recent-entries'),
     url('^blog/(?P<page_number>\d+)/$', recent_entries, name='recent-entries'),
     url('^blog/(\d{4}/\w{3}/\d{2})/([\w-]+)/$', entry_detail, name='entry-detail'),
