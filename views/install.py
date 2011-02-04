@@ -22,18 +22,20 @@ def create_menu():
 	return ''
 	
 def create_data(request):
-	s_form = GeneralSettings.AdminForm
-	u_form = User.AdminForm
-	user_form = u_form(request.POST)
+	
+	#u_form = User.AdminForm
+	user_form = User.AdminForm(request.POST)
 	if user_form.is_valid():
 		user = User()
 		user.create_user(user_form.cleaned_data['username'], user_form.cleaned_data['password'], 
 													user_form.cleaned_data['email'])
-		user.is_superuser = True
-		user.is_staff = True
-		user.save()
+		#user = User(username=user_form.cleaned_data['username'])
+		#user.is_superuser = True
+		#user.is_staff = True
+		#user.save()
 		
-	settings_form = s_form(request.POST)
+	#s_form = GeneralSettings.AdminForm	
+	settings_form = GeneralSettings.AdminForm(request.POST)
 	if settings_form.is_valid():
 		settings = GeneralSettings(**settings_form.cleaned_data)
 		settings.save()
