@@ -1,14 +1,7 @@
-{% extends "pixelcms/admin/base.html" %}
+{% extends "pixelcms/admin/default/base.html" %}
 
 {% block title %}{{ title }}{% endblock %}
 {% block extrahead %}{{ block.super }}
-<script type="text/javascript" src="/tiny_mce/tiny_mce.js"></script>
-<script type="text/javascript">
-tinyMCE.init({
-mode: "textareas",
-theme: "simple"
-});
-</script>
 {% endblock %}
 {% block content %}
 <h2>{{ title }}</h2>

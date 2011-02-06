@@ -23,7 +23,8 @@ from pixelcms.apps.conf import GeneralSettings
 from django.core.context_processors import request
 
 def _lookup_template(name):
-	return 'pixelcms/admin/%s.html' % name
+	theme = getattr(settings, 'PIXELCMS_THEME', 'default')
+	return 'pixelcms/admin/%s/%s.html' % (theme, name)
 
 @login_required
 def manage_general_settings(request):

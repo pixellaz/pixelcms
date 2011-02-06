@@ -1,9 +1,10 @@
-{% extends "pixelcms/admin/base.html" %}
+{% extends "pixelcms/admin/default/dashboard.html" %}
 
 {% block title %}{{ title }}{% endblock %}
 {% block extrahead %}{{ block.super }}
 {% endblock %}
-{% block content %}
+{% block manage %}
+
 <h2>{{ title }}</h2>
 <form action="" method="post">
     {% csrf_token %}

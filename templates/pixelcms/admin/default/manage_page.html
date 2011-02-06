@@ -1,14 +1,10 @@
-{% extends "pixelcms/admin/dashboard.html" %}
+{% extends "pixelcms/admin/default/dashboard.html" %}
 
 {% block manage %}
 
-<h3>New Post</h3>
-<ul class="inline">
-{% for type in entry_types %}
-    <li><a class="button" href="{% url add-entry type %}" title="New {{ type }} post">{{ type }}</a></li>
-{% endfor %}
-</ul>
-<div class="clear"></div>
+<!-- PAGE ENTRIES -->
+<h3>New Page</h3>
+<a class="button" href="{% url add-page %}" title="New Page">Page</a>
 <h3>All Entries&nbsp; { {{ entries|length }} }</h3>
 <ul class="lined-list">
 {% for entry in entries %}
@@ -22,11 +18,7 @@
         {% endif %}
     {% endif %}
     <span class="title">
-    {% if entry.link_url %}
-        <a href="{{ entry.link_url }}">
-    {% else %}
-        <a href="{{ entry.get_absolute_url }}" title="{{ entry.title|safe }}">
-    {% endif %}
+    <a href="{{ entry.get_absolute_url }}" title="{{ entry.title|safe }}">
     {{ entry.title|truncatewords:7|safe }}</a></span>&nbsp;<span class="date">{{ entry.publish_date|date:"F jS, Y" }}</span>
     <div class="edit-box">
     {% if not entry.published %}<span class="unpublished">Unpublished</span>&nbsp;
@@ -34,16 +26,11 @@
         {% if entry.publish_date >= datenow and entry.publish_date %}<span class="unpublished">Future Publication</span>&nbsp;{% endif %}
         {% if entry.expiry_date < datenow and entry.expiry_date %}<span class="unpublished">Expired</span>&nbsp;{% endif %}
     {% endif %}
-    {% if entry.comments_enabled %}
-    <a href="{{ entry.get_absolute_url }}#comments" title="Comments" class="comments-small">{{ entry.comments|length|default:0|safe }}</a>
-    {% else %}
-    <span class="comments-small">Off</span>
-    {% endif %}
-    <a class="button" href="{% url edit-entry entry.id %}">Edit</a>&nbsp;
-    <form action="{% url delete-entry %}" method="post">
+    <a href="{% url edit-page entry.id %}">Edit</a>&nbsp;
+    <form action="{% url delete-page %}" method="post">
         {% csrf_token %}
         <input type="hidden" value="{{ entry.id }}" name="entry_id" />
-        <input type="submit" value="Delete" class="button button-primary" />
+        <input type="submit" value="Delete" />
     </form>
     </div>
     </li>
